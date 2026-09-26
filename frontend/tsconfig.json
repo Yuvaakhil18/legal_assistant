@@ -11,7 +11,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "strict": true, "types": ["vitest/globals", "@testing-library/jest-dom"],
+    "strict": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom", "vite/client"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
