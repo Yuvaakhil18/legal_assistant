@@ -1,0 +1,1 @@
+import fs from 'fs'; import { PDFParse } from 'pdf-parse'; async function run() { const dataBuffer = fs.readFileSync('package.json'); const parser = new PDFParse({ data: dataBuffer }); await parser.load(); } run().catch(e => console.log('error as expected'));

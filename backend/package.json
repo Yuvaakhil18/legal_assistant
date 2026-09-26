@@ -1,0 +1,57 @@
+{
+  "name": "legal-intelligence-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Backend API and queue worker for the Legal Intelligence Platform",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "migrate": "tsx src/db/migrate.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/ --ext .ts"
+  },
+  "keywords": [
+    "legal-ai",
+    "contract-audit",
+    "pgvector",
+    "bullmq",
+    "express"
+  ],
+  "author": "Legal Intelligence Platform Team",
+  "license": "MIT",
+  "dependencies": {
+    "bullmq": "^5.41.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "ioredis": "^5.5.0",
+    "multer": "^2.4.0",
+    "pdf-parse": "^2.4.5",
+    "pg": "^8.13.3",
+    "uuid": "^11.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^22.13.9",
+    "@types/pdf-parse": "^1.1.5",
+    "@types/pg": "^8.11.11",
+    "@types/supertest": "^6.0.2",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "eslint": "^9.21.0",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.7"
+  }
+}

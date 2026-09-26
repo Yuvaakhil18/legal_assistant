@@ -1,0 +1,1 @@
+import fs from 'fs'; import { PDFParse } from 'pdf-parse'; async function run() { const dataBuffer = fs.readFileSync('test2.pdf'); const parser = new PDFParse({ data: dataBuffer }); await parser.load(); const text = await parser.getText(); console.log(text); } run().catch(console.error);
