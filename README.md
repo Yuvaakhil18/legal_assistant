@@ -44,6 +44,36 @@ Contracts are intentionally written in dense, one-sided legalese that disadvanta
 
 The **Legal Intelligence Platform** bridges this asymmetry. Users upload any contract (`.pdf`), and the system's asynchronous, multi-agent AI pipeline parses the document, analyzes its clauses, and delivers a robust, educational audit.
 
+### Multi-Agent Pipeline Workflow
+
+```mermaid
+graph TD
+    User([User / Client App]) -->|Upload File| IngestionAgent[1. Ingestion & Boundary Parsing Agent]
+    IngestionAgent -->|Segmented Clauses + Nonces| QueueGate[BullMQ Job Queue Gate]
+    
+    subgraph Async Worker Pool ["Asynchronous Analysis Pipeline"]
+        QueueGate -->|Clause Stream| RetrievalAgent[2. Category & Benchmark Retrieval Agent]
+        RetrievalAgent -->|Category Matches >= Threshold| RiskAuditorAgent[3. Legal Risk & Semantic Delta Agent]
+        RetrievalAgent -->|Benchmark Gap / Novel Terms| RiskAuditorAgent
+        
+        RiskAuditorAgent -->|Caution & Unfavorable Clauses| CounterDraftAgent[4. Counter-Drafting & Strategy Agent]
+        RiskAuditorAgent -->|Clause Audit Tiers| GotchasAgent[5. Executive Synthesis & Gotchas Agent]
+        CounterDraftAgent -->|Educational Alternatives| GotchasAgent
+        
+        GotchasAgent -->|Consolidated Audit Packet| GuardrailAgent[6. Regulatory & UPL Guardrail Agent]
+    end
+    
+    GuardrailAgent -->|Validated Audit Report| DB[(PostgreSQL + pgvector)]
+    DB -.->|Poll / Push| User
+    
+    subgraph Interactive Q&A Mode ["On-Demand Interactive Query Engine"]
+        User -->|Post Document Question| LegalInquiryAgent[7. Interactive Legal Inquiry Agent]
+        LegalInquiryAgent <-->|Context Retrieval| DB
+        LegalInquiryAgent --> GuardrailAgent
+        GuardrailAgent -->|Grounded Educational Answer| User
+    end
+```
+
 The system is built upon **Architecture V2**:
 - **7-Agent Topology**: Coordinated ensemble of specialized domain agents (`IngestionAgent`, `RetrievalAgent`, `RiskAuditorAgent`, `CounterDraftAgent`, `GotchasAgent`, `GuardrailAgent`, `LegalInquiryAgent`).
 - **Asynchronous Queue**: Powered by **BullMQ + Redis 7** (`contract-analysis-queue`) with exponential backoff and dead-letter queue routing (`contract-analysis-dlq`).
