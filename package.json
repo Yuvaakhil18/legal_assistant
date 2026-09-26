@@ -2,6 +2,10 @@
   "name": "legal-intelligence-platform",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "description": "Next-Generation Legal Intelligence & Contract Risk Auditing Platform",
   "scripts": {
     "dev:backend": "npm --prefix backend run dev",
