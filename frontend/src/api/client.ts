@@ -14,6 +14,8 @@ async function fetchWithHandler<T>(endpoint: string, options: RequestInit = {}):
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      'Bypass-Tunnel-Reminder': 'true',
+      'ngrok-skip-browser-warning': 'true',
       ...(options.headers || {}),
     },
   });
@@ -84,6 +86,7 @@ export const ApiClient = {
     
     const response = await fetch(`${API_BASE_URL}/documents`, {
       method: 'POST',
+      headers: { 'Bypass-Tunnel-Reminder': 'true', 'ngrok-skip-browser-warning': 'true' },
       body: formData,
     });
     
@@ -138,12 +141,14 @@ export const ApiClient = {
   getCounterDraft: async (documentId: string, clauseId: string): Promise<CounterDraft> => {
     return fetchWithHandler<CounterDraft>(`/documents/${documentId}/clauses/${clauseId}/counter-draft`, {
       method: 'POST',
+      headers: { 'Bypass-Tunnel-Reminder': 'true', 'ngrok-skip-browser-warning': 'true' },
     });
   },
 
   askQuestion: async (documentId: string, question: string): Promise<QueryResponse> => {
     return fetchWithHandler<QueryResponse>(`/documents/${documentId}/query`, {
       method: 'POST',
+      headers: { 'Bypass-Tunnel-Reminder': 'true', 'ngrok-skip-browser-warning': 'true' },
       body: JSON.stringify({ question }),
     });
   }
